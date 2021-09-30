@@ -1,0 +1,139 @@
+/* Temporary - Used for now to make tables clear */
+table, th, td {
+    border: 1px solid black;
+    vertical-align: text-top;
+}
+    
+/* Column 1 - Conversation Filter + Conversation List */
+#column1 {
+    display: inline-block;
+    float: left;
+    table-layout: fixed;
+    min-width: 31%;
+    max-width: 31%;
+    height: 80%;
+    overflow-y: visible;
+    /*border: 2px solid red;*/
+}
+
+#conversation-filter-div {
+    min-width: 100%;
+    max-width: 100%;
+    height: 20%;
+}
+#conversation-filter-table {
+    width: 100%;
+    height: 100%;
+}
+#conversation-list-div {
+    min-width: 100%;
+    max-width: 100%;
+    overflow-y: scroll;
+    height: 80%;
+}
+#conversation-list-table {
+  min-width: 100%;
+  max-width: 100%;
+}
+
+.errortweet {
+  background-color: #ff4772;
+}
+
+.activetweet {
+  background-color: lime;
+}
+
+.handledtweet {
+  background-color: grey;
+}
+
+/* Column 2 - Conversation + Reply */
+#column2 {
+    display: inline-block;
+    float: left;
+    min-width: 40%;
+    max-width: 40%;
+    height: 80%;
+    /*border: 2px solid red;*/
+}
+ 
+#conversation-div {
+    display: flex;
+    flex-direction: column;
+    min-width: 100%;
+    max-width: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 85%;
+    float: top;
+}
+#conversation-td {
+    vertical-align: text-top;
+}
+#reply-div {
+    width: 100%;
+    max-width: 100%;
+    height: 15%;
+    float: bottom;
+}
+#reply-box-div {
+    display: inline-block;
+    float: left;
+    width: 80%;   
+    max-width: 80%;
+}
+#reply-textarea {
+    resize: none;
+    width: 100%;
+    height: 100%;
+}
+#reply-button-div {
+    display: inline-block;
+    width: 20%;
+    max-width: 20%;
+}
+#reply-button {
+    width: 100%;
+    height: 100%;
+}
+
+.admin-message {
+  background-color: lightblue;
+}
+
+.customer-message {
+  background-color: lightgray;
+}
+
+/* Column 3 - Create Journey */
+#column3 {
+    display: inline-block;
+    float: left;
+    min-width: 28%;
+    max-width: 28%;
+    height: 80%;
+    /*border: 2px solid red;*/
+}
+
+#conversation-details {
+  min-width: 100%;
+  max-width: 100%;
+  height: 20%;
+}
+
+#conversation-details-table {
+  min-width: 100%;
+  max-width: 100%;
+}
+
+#ride-details {
+  min-width: 100%;
+  max-width: 100%;
+  height: 80%;
+}
+            
+#ride-details-table {
+  min-width: 100%;
+  max-width: 100%;
+}

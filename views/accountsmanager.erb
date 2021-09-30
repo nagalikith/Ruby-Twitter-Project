@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+    <style>
+		body {
+			
+			font-family: sans-serif;
+			background-color: #FCFCFC;
+            margin-top: 50px;
+			text-align: center;
+		}
+		
+		form {
+			text-align: left;
+			margin: auto;
+			width: 50%			
+		}
+		
+        input {
+            display: block;
+			width: 100%;
+            padding: 14px 15px;
+			margin-bottom: 10px;
+			background-color: #F1F1F1;
+			border: 1px solid black;
+			width: 100%;
+        }
+		
+      
+		input[name="submit"] {
+			color: white;
+			background-color: #555555;
+			border: 2px solid black;
+			border-radius: 12px;
+			font-size: 1.1em;
+			
+		}
+		
+		
+		input[name="submit"]:hover{
+			background-color: rgb(232, 132, 13);
+			transition: 1s;
+		}
+
+		
+		input[name="submit"]:active{
+			background-color: rgb(192, 102, 10);
+			transition: 0.45s;
+		}
+		
+		table{
+			margin: auto;
+			margin-top: 20px;
+			border-color: #888888);
+		}
+        
+        input[id="rmv_btn"]{
+            width: 200px;
+        }
+
+	
+    </style>
+<head>
+	<title>User Data Management</title>
+</head>
+    <%= erb :header %> 
+<body>
+<br>
+<center><h1>User Data</h1></center>
+	
+    <form method="get" action="/accounts_manager">
+        Username:<input type="text" name="search" value="<%= params[:search] %>" required/>
+        <br>
+        <input type="submit" name="submit" value="submit"/>
+    </form>
+    <br>
+    <% unless params[:search].nil? %> 
+        <% if !@user_details.nil? %>
+            <% if !@action.nil? and @action == "user_deletion" %>
+                <p><%= @message %></p>
+            <% end %>
+            <form method="post" action="/modify_user">
+                <table>
+                    <tr><td>Username</td>
+                        <td><input type="text" name="username" value="<%= @user_details[0] %>" required></td></tr>
+                    <tr><td>Account Type</td>
+                        <td><select name="user_type" value="<%= @user_details[2] %>">
+                            <option value="customer" <% if @user_details[2] == "customer" then %> selected <% end %>>customer</option>
+                            <option value="general_manager" <% if @user_details[2] == "general_manager" then %> selected <% end %>>general manager</option>
+                            <option value="accounts_manager" <% if @user_details[2] == "accounts_manager" then %> selected <% end %>>accounts manager</option>
+                            <option value="twitter_manager" <% if @user_details[2] == "twitter_manager" then %> selected <% end %>>twitter manager</option>
+                            <option value="marketting_manager" <% if @user_details[2] == "marketting_manager" then %> selected <% end %>>marketting manager</option>
+                            <option value="car_manager" <% if @user_details[2] == "car_manager" then %> selected <% end %>>car manager</option>
+                            </select></td></tr>
+                    <tr><td>Region</td>
+                        <td><select name="region" value="<%= @user_details[3] %>">
+                            <option value="sheffield" <% if @user_details[3] == "sheffield" then %> selected <% end %>>sheffield</option>
+                            <option value="manchester" <% if @user_details[3] == "manchester" then %> selected <% end %>>manchester</option>
+                            </select></td></tr>
+                    <tr><td>Twitter Handle</td>
+                        <td><input type="text" name="twitter_handle" value="<%= @user_details[1] %>"></td></tr>
+                </table>
+                <br>
+                <input type="hidden" name="oldusername" value="<%= @user_details[0] %>">
+                <input type="submit" name="submit" value="update details"/>
+            
+            </form>
+            <br>
+            <form method="post" action="/delete_user">
+                <input type="hidden" name="username" value="<%= @user_details[0] %>">
+                <input type="submit" name="submit" value="delete user"/>
+            </form>
+            <br>
+            <% if !@action.nil? and @action == "information_update" %>
+                <p><%= @message %></p>
+            <% end %>
+            <% if @user_offers.length > 0 then%>
+                <table>
+                    <% @user_offers.each do |offer| %>
+                        <tr>
+                            <td><%= offer[1] %></td>
+                            <td><form method="post" action="/remove_offer">
+                            <div id="btns_offers"> 
+                                <input type="hidden" name="username" value="<%= @user_details[0] %>">
+                                <input type="hidden" name="offer_type" value="<%=offer[1] %>">
+                                <input id="rmv_btn"type="submit" name="submit" value="remove offer">
+                            </div>   
+                            </form></td>
+                        </tr>
+                    <% end %>
+                </table>
+            <% else %>
+                <p>This user has no offers.</p>
+            <% end %>
+            <% if !@action.nil? and @action == "offer_removal" %>
+                <p><%= @message %></p>
+            <% end %>
+            <form method="post" action="/add_offer">
+                <input type="hidden" name="username" value="<%= @user_details[0] %>">
+                <br>
+                <br>
+                Offer type: <input type="text" name="offer_type" required>
+                <br>
+                <input type="submit" name="submit" value="add offer">                    
+            </form>
+            <% if !@action.nil? and @action == "offer_addition" %>
+                <p><%= @message %></p>
+            <% end %>
+        <% elsif params[:search].strip.downcase == ""%>
+            <p>Please enter a username.</p>
+        <% else %>
+            <% unless @message.nil? %>
+                <p><%= @message %></p>
+            <% else %>
+                <p>User not found.</p>
+            <% end %>
+        <% end %>
+	<% end %>	
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    </body>
+    <%= erb :footer %>
+</html>

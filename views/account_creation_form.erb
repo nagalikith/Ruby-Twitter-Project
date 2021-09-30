@@ -1,0 +1,89 @@
+
+<html>
+    <style>
+		body {
+			font-family: sans-serif;
+			background-color: #FCFCFC;
+            margin-top: 50px;
+		}
+		
+		form {
+			margin: auto;
+			width: 50%
+		}
+		
+        input {
+            display: block;
+			width: 100%;
+            padding: 14px 15px;
+			margin-bottom: 10px;
+			background-color: #F1F1F1;
+			border: 1px solid black;
+        }
+		
+		p {
+			text-align: center;
+		}
+		
+		p a{
+			color: rgb(182, 82, 5)
+		}
+
+        p a:hover{			
+			color: rgb(232, 132, 13);
+			text-align: center;
+			transition: 0.45s;
+		}
+		
+		input[name="submit"] {
+			color: white;
+			background-color: #555555;
+			border: 2px solid black;
+			border-radius: 12px;
+			font-size: 1.1em;
+		}
+		
+		input[name="submit"]:hover {
+			background-color: rgb(232, 132, 13);
+			transition: 1s;
+		}
+
+		input[name="submit"]:active {
+			background-color: rgb(192, 102, 10);
+			transition: 0.45s;
+		}
+        
+		label{
+			float: left;
+		}
+	</style>
+    
+    <body>
+        <p>You have authenticated with the twitter handle <b><%=h session[:twitter_handle] %></b></p>
+        <p><a href="/deauthenticate_twitter_handle">Click here to deauthenticate this twitter handle.</a></p>
+        <br>
+        <form method="POST">
+            <p>
+                <label for="username">Username:</label> <input type="username" name="username" value="<%=h params[:username] %>"/>
+            </p><p>
+                <% if @error_type == "username" %>
+                    <%= @error %>
+                <% end %>
+            </p><p>
+                <label for="username">Password:</label> <input type="password" name="password" value=""/>
+            </p><p>
+                <label for="passwordRe-enter">Please re-enter your password:</label> <input type="password" name="password_reentered" value=""/>
+            </p><p>
+                <% if @error_type == "password" %>
+                    <%= @error %>
+                <% end %>
+            </p>
+            <input type="submit" name="submit" value="create account"/>
+        </form>
+
+        <p><a href="/">Click here to return to the main page</a></p>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    </body>
+</html>

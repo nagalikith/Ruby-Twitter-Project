@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <%= erb :header %>   
+    <body>
+        <br>
+        <center><h2>Car Manager Dashboard</h2></center>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Taxi Number</th>
+                    <th scope="col">Type of Vehicle</th>
+                    <th scope="col">Available</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @rows.each do |row| %>
+                    <tr>
+                        <td><%= row[0] %></td>
+                        <td><%= row[1] %></td>
+                        <td><%= row[2] %></td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+        <div class="container">
+            <div class="row">
+                <div class="col-6 align-self-center">
+                    <form method="get" action="/carmanager_add">
+                          <div class="form-group">
+                              Taxi Number: <input type="text" name="vehicle_id" value="<%= params[:vehicle_id] %>" required/>
+                              <br>
+                              <label for="Type">Type of Vehicle:</label>
+                              <select class="form-control" name="type_of_vehicle" required>
+                                  <option value ="Tandem Bicycle">Tandem Bicycle</option>
+                                  <option value ="Sedan Car">Sedan Car</option>
+                                  <option value ="Army Truck">Army Truck</option>
+                              </select>
+                              <label for="Type">Available:</label>
+                              <select class="form-control" type="text" name="available" required>
+                                  <option value = "Yes">Yes</option>
+                                  <option value = "NO">No</option>
+                              </select>
+                          </div>
+                        <button type="submit" class="btn btn-primary">Add/Change Vehicle</button>
+                    </form>
+                </div>
+                <div class="col-6 align-self-center">
+                    <br>
+                    <form method="get" action="/carmanager_remove">
+                        Vehicle ID: <input type="text" name="vehicle_id" value="<%= params[:vehicle_id] %>" required />
+                        <button type="submit" class="btn btn-primary">Remove Vehicle</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    </body>
+    <%= erb :footer %>
